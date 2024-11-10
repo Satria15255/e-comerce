@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ecomerce</title>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,
+      700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- style -->
+    <link rel="stylesheet" href="css/style.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script src="src/app.js"></script>
+  </head>
+  <body>
+    <!-- navbar start -->
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">MamiFood<span>Italiana</span></a>
+
+      <div class="navbar-nav">
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <!-- <a href="#menu">Menu</a> -->
+        <a href="#products">Terlaris</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="nav nav-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shooping-cart-button"
+          ><i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"> </span>
+        </a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+
+      <!-- Search form start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here.." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- Search form start -->
+
+      <!-- SHooping cart -->
+      <div class="shooping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+          <div class="cart-item">
+            <img :src="`menu/products/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="`${item.name}`"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+                <span x-text="rupiah(item.total)"></span>
+              </div>
+            </div>
+          </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem">Cart is Empty</h4>
+        <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+        <div class="form-container">
+          <form action="" id="chekout-form" x-show="$store.cart.items.length">
+            <h5>Customer Detail</h5>
+
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name" />
+            </label>
+            <label for="email">
+              <span>Email</span>
+              <input type="email" name="email" id="email" />
+            </label>
+            <label for="phone">
+              <span>Phone</span>
+              <input type="number" name="phone" id="phone" autocomplete="off" />
+            </label>
+
+            <button class="chekout-button" type="submit" id="chekout-button">chekout</button>
+          </form>
+        </div>
+      </div>
+      <!-- SHooping cart -->
+    </nav>
+    <!-- navbar end -->
+
+    <!-- Hero section start -->
+    <section class="hero" id="home">
+      <main class="content">
+        <h1>Cita Rasa Italia yang <span>Menghangatkan Hati.</span></h1>
+        <p>Temukan kelezatan sejati masakan Italia di MamiFood!</p>
+        <a href="#" class="cta">Order Now</a>
+      </main>
+    </section>
+    <!-- Hero section ENd -->
+
+    <!-- abiut section -->
+    <section id="about" class="about">
+      <h2><span>About</span> Me</h2>
+
+      <div class="row">
+        <div class="about-img">
+          <img src="img/abioutttts.jpg " alt="aboutme" />
+        </div>
+        <div class="content">
+          <h3>Why on we?</h3>
+          <p>
+            La Tavola Italiana adalah sebuah restoran Italia autentik yang menawarkan pengalaman kuliner khas Italia di setiap hidangannya. Kami menyajikan berbagai hidangan tradisional Italia, mulai dari pasta buatan tangan, pizza tipis
+            dengan topping segar, hingga aneka hidangan laut yang diolah dengan bumbu khas Mediterania. Setiap sajian kami dibuat dengan bahan-bahan berkualitas tinggi, langsung diimpor dari Italia atau dipilih dari petani lokal terbaik
+          </p>
+          <p>
+            Nikmati suasana hangat dan ramah ala Italia, dengan interior bergaya klasik yang membawa Anda seakan sedang makan malam di jantung kota Roma. Cocok untuk acara keluarga, makan malam romantis, atau sekadar berkumpul bersama
+            teman. Di La Tavola Italiana, kami mengutamakan keaslian rasa dan pelayanan terbaik untuk pengalaman kuliner tak terlupakan
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- abiut section -->
+
+    <!-- menu section -->
+    <!-- <section id="menu" class="menu">
+      <h2><span>Menu</span> kami</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, nemo. Laudantium eveniet dolorem placeat quas!</p>
+
+      <div class="row">
+        <div class="menu-card">
+          <img src="menu/salad.jpg" alt="menu1" class="menu-card-img" width="300px" height="300px" />
+          <h3 class="menu-card-title">Caprese Salad</h3>
+          <p class="menu-card-price">
+            Irisan tomat segar, mozzarella,<br />
+            basil, dan balsamic vinegar.
+          </p>
+        </div>
+        <div class="menu-card">
+          <img src="menu/pasta.jpg" alt="menu1" class="menu-card-img" width="300px" height="300px" />
+          <h3 class="menu-card-title">Fettuccine Alfredo</h3>
+          <p class="menu-card-price">
+            Pasta fettuccine lembut dengan <br />
+            saus krim, keju parmesan, dan mentega.
+          </p>
+        </div>
+        <div class="menu-card">
+          <img src="menu/menu3.jpg" alt="menu1" class="menu-card-img" width="300px" height="300px" />
+          <h3 class="menu-card-title">Pollo alla Parmigiana</h3>
+          <p class="menu-card-price">
+            Dada ayam dilapisi tepung roti, digoreng hingga <br />
+            garing dan disajikan dengan saus <br />
+            tomat serta keju mozzarella yang meleleh
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="menu-card">
+          <img src="menu/menu4.jpg" alt="menu1" class="menu-card-img" width="300px" height="300px" />
+          <h3 class="menu-card-title">Quattro Formaggi</h3>
+          <p class="menu-card-price">
+            Pizza dengan empat jenis keju: mozzarella, <br />
+            gorgonzola, parmesan, dan ricotta
+          </p>
+        </div>
+        <div class="menu-card">
+          <img src="menu/tiramisu.jpg" alt="menu1" class="menu-card-img" width="300px" height="300px" />
+          <h3 class="menu-card-title">Tiramisu</h3>
+          <p class="menu-card-price">
+            Kue lembut dengan lapisan krim mascarpone, <br />
+            biskuit ladyfinger, dan espresso, <br />
+            ditaburi bubuk kakao.
+          </p>
+        </div>
+        <div class="menu-card">
+          <img src="menu/espresso.jpg" alt="menu1" class="menu-card-img" width="300px" height="300px" />
+          <h3 class="menu-card-title">Espresso</h3>
+          <p class="menu-card-price">Kopi hitam pekat khas Italia</p>
+        </div>
+      </div>
+    </section> -->
+    <!-- menu section -->
+
+    <!-- mENU S2 -->
+    <section class="products" id="products" x-data="products">
+      <h2>Menu <span>Terlaris</span></h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, eos suscipit officiis sint in quae.</p>
+
+      <div class="row">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="products-cart">
+            <div class="products-icon">
+              <a href="#" @click.prevent="$store.cart.add(item)">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#shopping-cart" />
+                </svg>
+              </a>
+            </div>
+            <div class="products-image">
+              <img :src="`menu/products/${item.img}`" :alt="item.name" />
+            </div>
+            <div class="products-content">
+              <h3 x-text="item.name"></h3>
+              <p x-text="item.desk"></p>
+              <div class="products-starts">
+                <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+              </div>
+              <div class="products-price"><span x-text="rupiah (item.price)">100k</span></div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <h2><span>Kontak</span> kami</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, nemo. Laudantium eveniet dolorem placeat quas!</p>
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.777266088012!2d111.87346139999998!3d-7.151732699999989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7781fa56d95e79%3A0x6af84ccfd1d3f047!2s3S%20Corner!5e0!3m2!1sid!2sid!4v1728703710342!5m2!1sid!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+
+        <form action="">
+          <div class="input-group">
+            <i data-feather="user"></i>
+            <input type="text" placeholder="Name" />
+          </div>
+          <div class="input-group">
+            <i data-feather="mail"></i>
+            <input type="text" placeholder="Email" />
+          </div>
+          <div class="input-group">
+            <i data-feather="phone"></i>
+            <input type="text" placeholder="No Phone" />
+          </div>
+
+          <button type="submit" class="btn">Kirim Pesan</button>
+        </form>
+      </div>
+    </section>
+    <!-- Contact -->
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-content">
+          <p>&copy; 2024 Satria Zafarani. All rights reserved.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer section end -->
+    <!-- Feather Icons End -->
+
+    <!-- modalboxitem -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="menu/espresso.jpg" alt="product" />
+          <div class="product-content">
+            <h3>prodeuct</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate dignissimos in saepe facere numquam labore sequi quibusdam nihil harum quo?</p>
+            <div class="products-starts">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="products-price">30k <span>100k</span></div>
+            <a href="#"><i data-feather="shopping-cart"></i> <span>add to cart</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modalboxitem -->
+
+    <script>
+      feather.replace();
+    </script>
+
+    <!-- Javacript -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
